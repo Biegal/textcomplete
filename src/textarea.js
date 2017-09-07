@@ -46,10 +46,12 @@ export default class Textarea extends Editor {
    */
   applySearchResult(searchResult: SearchResult) {
     const replace = searchResult.replace(this.getBeforeCursor(), this.getAfterCursor());
-    this.el.focus(); // Clicking a dropdown item removes focus from the element.
-    if (Array.isArray(replace)) {
-      update(this.el, replace[0], replace[1]);
-      this.el.dispatchEvent(new Event('input'));
+    if (this.getBeforeCursor() !== replace[0]) {
+      this.el.focus(); // Clicking a dropdown item removes focus from the element.
+      if (Array.isArray(replace)) {
+        update(this.el, replace[0], replace[1]);
+        this.el.dispatchEvent(new Event('input'));
+      }
     }
   }
 
