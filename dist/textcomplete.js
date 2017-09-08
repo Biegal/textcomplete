@@ -929,13 +929,26 @@ var Dropdown = function (_EventEmitter) {
       } else if (cursorOffset.right) {
         this.el.style.right = cursorOffset.right + 'px';
       }
-      if (this.isPlacementTop()) {
-        var element = document.documentElement;
+
+      var element = document.documentElement;
+      var forceTop = false;
+
+      if (this.isPlacementAuto()) {
+        var dropdownHeight = this.items.length * cursorOffset.lineHeight;
+
+        if (cursorOffset.clientTop + dropdownHeight > element.clientHeight) {
+          forceTop = true;
+        }
+      }
+
+      if (this.isPlacementTop() || forceTop) {
         if (element) {
           this.el.style.bottom = element.clientHeight - cursorOffset.top + cursorOffset.lineHeight + 'px';
+          this.el.style.top = 'auto';
         }
       } else {
         this.el.style.top = cursorOffset.top + 'px';
+        this.el.style.bottom = 'auto';
       }
       return this;
     }
@@ -1057,6 +1070,11 @@ var Dropdown = function (_EventEmitter) {
     key: 'isPlacementTop',
     value: function isPlacementTop() {
       return this.placement === 'top';
+    }
+  }, {
+    key: 'isPlacementAuto',
+    value: function isPlacementAuto() {
+      return this.placement === 'auto';
     }
   }, {
     key: 'el',
@@ -1364,11 +1382,12 @@ var Textarea = function (_Editor) {
       var lineHeight = (0, _utils.getLineHeightPx)(this.el);
       var top = elOffset.top - elScroll.top + cursorPosition.top + lineHeight;
       var left = elOffset.left - elScroll.left + cursorPosition.left;
+      var clientTop = this.el.getBoundingClientRect().top;
       if (this.el.dir !== 'rtl') {
-        return { top: top, left: left, lineHeight: lineHeight };
+        return { top: top, left: left, lineHeight: lineHeight, clientTop: clientTop };
       } else {
         var right = document.documentElement ? document.documentElement.clientWidth - left : 0;
-        return { top: top, right: right, lineHeight: lineHeight };
+        return { top: top, right: right, lineHeight: lineHeight, clientTop: clientTop };
       }
     }
 
