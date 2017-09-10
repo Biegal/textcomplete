@@ -124,8 +124,9 @@ export default class Textarea extends Editor {
     }
   }
 
-  onBlur(e) {
-    const event = this.emitEscEvent()
+  /** @private */
+  onBlur(e: Event) {
+    const event = this.emitEscEvent();
     if (event && event.defaultPrevented) {
       e.preventDefault();
     }

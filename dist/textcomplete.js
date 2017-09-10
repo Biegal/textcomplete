@@ -1458,6 +1458,9 @@ var Textarea = function (_Editor) {
         e.preventDefault();
       }
     }
+
+    /** @private */
+
   }, {
     key: 'onBlur',
     value: function onBlur(e) {
