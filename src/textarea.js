@@ -124,15 +124,24 @@ export default class Textarea extends Editor {
     }
   }
 
+  onBlur(e) {
+    const event = this.emitEscEvent()
+    if (event && event.defaultPrevented) {
+      e.preventDefault();
+    }
+  }
+
   /** @private */
   startListening() {
     this.el.addEventListener('input', this.onInput);
     this.el.addEventListener('keydown', this.onKeydown);
+    this.el.addEventListener('blur', this.onBlur);
   }
 
   /** @private */
   stopListening() {
     this.el.removeEventListener('input', this.onInput);
     this.el.removeEventListener('keydown', this.onKeydown);
+    this.el.removeEventListener('blur', this.onBlur);
   }
 }

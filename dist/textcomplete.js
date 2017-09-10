@@ -1458,6 +1458,14 @@ var Textarea = function (_Editor) {
         e.preventDefault();
       }
     }
+  }, {
+    key: 'onBlur',
+    value: function onBlur(e) {
+      var event = this.emitEscEvent();
+      if (event && event.defaultPrevented) {
+        e.preventDefault();
+      }
+    }
 
     /** @private */
 
@@ -1466,6 +1474,7 @@ var Textarea = function (_Editor) {
     value: function startListening() {
       this.el.addEventListener('input', this.onInput);
       this.el.addEventListener('keydown', this.onKeydown);
+      this.el.addEventListener('blur', this.onBlur);
     }
 
     /** @private */
@@ -1475,6 +1484,7 @@ var Textarea = function (_Editor) {
     value: function stopListening() {
       this.el.removeEventListener('input', this.onInput);
       this.el.removeEventListener('keydown', this.onKeydown);
+      this.el.removeEventListener('blur', this.onBlur);
     }
   }]);
 
