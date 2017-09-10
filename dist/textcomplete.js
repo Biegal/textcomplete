@@ -1477,7 +1477,7 @@ var Textarea = function (_Editor) {
     value: function startListening() {
       this.el.addEventListener('input', this.onInput);
       this.el.addEventListener('keydown', this.onKeydown);
-      this.el.addEventListener('blur', this.onBlur);
+      this.el.addEventListener('blur', this.onBlur.bind(this));
     }
 
     /** @private */

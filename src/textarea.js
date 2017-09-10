@@ -136,7 +136,7 @@ export default class Textarea extends Editor {
   startListening() {
     this.el.addEventListener('input', this.onInput);
     this.el.addEventListener('keydown', this.onKeydown);
-    this.el.addEventListener('blur', this.onBlur);
+    this.el.addEventListener('blur', this.onBlur.bind(this));
   }
 
   /** @private */
