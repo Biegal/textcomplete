@@ -1996,6 +1996,9 @@ var DropdownItem = function () {
         }
         this.active = true;
         this.el.className = ACTIVE_CLASS_NAME;
+
+        var offsetToScroll = this.el.offsetTop;
+        this.dropdown.el.scrollTop = offsetToScroll;
       }
       return this;
     }

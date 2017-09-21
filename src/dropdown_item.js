@@ -78,6 +78,9 @@ export default class DropdownItem {
       }
       this.active = true;
       this.el.className = ACTIVE_CLASS_NAME;
+
+      const offsetToScroll = this.el.offsetTop;
+      this.dropdown.el.scrollTop = offsetToScroll;
     }
     return this;
   }
